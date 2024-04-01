@@ -1,0 +1,137 @@
+%-------------------------------%
+% Template modify from Alexander Soen's Student Assignment Template
+%https://www.overleaf.com/latex/templates/student-assignment-template/sjkprrdkmphg
+%-------------------------------%
+
+\documentclass[a4paper]{article}
+\usepackage{student}
+\usepackage{float}
+
+% Metadata
+\date{\today}
+\setmodule{Assignment 2 Report}
+\setterm{112-1 (Fall 2023)}
+
+%-------------------------------%
+% Other details
+% TODO: Fill the information
+%-------------------------------%
+\title{Reinforcement Learning}
+\setmembername{Yu Xiang, Luo} % In English
+\setmemberuid{B10902037}
+%-------------------------------%
+% Add / Delete commands and packages
+% TODO: Add / Delete here as you need
+%-------------------------------%
+\usepackage{amsmath,amssymb,bm}
+
+\newcommand{\KL}{\mathrm{KL}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\T}{\top}
+
+\newcommand{\expdist}[2]{%
+        \normalfont{\textsc{Exp}}(#1, #2)%
+    }
+\newcommand{\expparam}{\bm \lambda}
+\newcommand{\Expparam}{\bm \Lambda}
+\newcommand{\natparam}{\bm \eta}
+\newcommand{\Natparam}{\bm H}
+\newcommand{\sufstat}{\bm u}
+
+% Main document
+\begin{document}
+    % Add header
+    \header
+
+    % Use `answer` environment to add solutions
+    % \begin{answer}[Question 1.1] for example starts an environment formatted
+    % for Question 1.1
+	\begin{answer}[Q1 \& Q2. Discuss and plot learning curves under $\epsilon$ values of $(0.1, 0.2, 0.3, 0.4)$ on MC, SARSA, and Q-Learning]
+		I'll discuss Q1 and Q2 together, and consider each model separately first.
+		\begin{itemize}
+			\item MC\\
+				\\
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/MC_01.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/MC_02.png}}\\
+				\[\text{The left one's $\epsilon = 0.1$, and the right one's $\epsilon = 0.2$} \]
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/MC_03.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/MC_04.png}}\\
+				\[\text{The left one's $\epsilon = 0.3$, and the right one's $\epsilon = 0.4$} \]
+
+				By comparison, we can see the plot below:\\ 
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/MC_loss.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/MC_reward.png}}\\
+				The plot reveals that as epsilon increases, the converged loss rises, and the average reward decreases. This observation aligns with the understanding that the epsilon-greedy approach isn't ideal for an environment with a well-trained Q value. Consequently, higher epsilon values result in greater converged losses. In terms of rewards, environments with smaller epsilon values tend to yield higher rewards due to a greater likelihood of choosing the optimal action. Also, the smaller epsilon values needs more iteration steps to converge, compared to the bigger one.
+				\fbox{\includegraphics[width=0.9\textwidth]{./images/MC_loss2.png}}
+			\item SARSA\\
+				\\
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/SARSA_01.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/SARSA_02.png}}\\
+				\[\text{The left one's $\epsilon = 0.1$, and the right one's $\epsilon = 0.2$} \]
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/SARSA_03.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/SARSA_04.png}}\\
+				\[\text{The left one's $\epsilon = 0.3$, and the right one's $\epsilon = 0.4$} \]
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/SARSA_loss.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/SARSA_reward.png}}\\
+				Like MC, smaller epsilon value leads to a higher converged average reward, and a lower loss. Overall, the attribute is quite similar to MC, in terms of a long term iteration.
+			\item Q-learning\\
+				\\
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/Q_01.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/Q_02.png}}\\
+				\[\text{The left one's $\epsilon = 0.1$, and the right one's $\epsilon = 0.2$} \]
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/Q_03.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/Q_04.png}}\\
+				\[\text{The left one's $\epsilon = 0.3$, and the right one's $\epsilon = 0.4$} \]
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/Q_loss.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/Q_reward.png}}\\
+				In Q learning, the loss converge at a early step, and smaller epsilon also leads to a higher converged average reward. It's interesting that the smaller epsilon has a higher loss. 
+			\item Comparison\\
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/loss_cmp.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/reward_cmp.png}}\\
+				Lower epsilon leads to a lower converged loss, and a higher reward. In this gridworld, SARSA and MC seem to have similar performance in same epsilon. Apart from this, it's also visible that the higer epsilon has the higher variance. Like the plot below shows:\\
+				\fbox{\includegraphics[width=0.8\textwidth]{./images/loss_var.png}}\\
+				\[\text{SARSA ($epsilon_{0.4}$) has the highest variance.}\]
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/all_loss.png}}
+				\fbox{\includegraphics[width=0.45\textwidth]{./images/all_reward.png}}\\
+				\[\text{If comparing with Q-learning, MC and SARSA's performance are lower than Q-learning.}\]
+
+		\end{itemize}
+    \end{answer}
+
+    \begin{answer}[Q3. Discuss and plot $\text{...}$]
+		\begin{itemize}
+			\item step reward\\
+				\begin{itemize}
+					\item step reward = -0.3\\
+						\fbox{\includegraphics[width=0.7\textwidth]{./images/reward_3.png}}\\
+						This graph shows the difference speed of convergence in different reward(original step reward = -0.1). As the result shows, the smaller step reward can boost the convergence to a early step. The result is more evident when step reward is smaller. 
+					\item step reward = -0.5\\
+						\fbox{\includegraphics[width=0.7\textwidth]{./images/reward_5.png}}\\
+						The reward plot is easy to imagine. As step rewards gets smaller, the average reward would decrease, too.\\
+						\fbox{\includegraphics[width=0.7\textwidth]{./images/step_reward.png}}
+				\end{itemize}
+			\item discount factor\\
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/lamb_loss.png}}\\ 
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/lamb_reward.png}}\\ 
+				The smaller the discount factor, the lower the loss is. Howerver, the smaller loss doesn't guarantee the bigger average reward.
+			\item learning rate\\
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/lr_loss.png}}\\ 
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/lr_reward.png}}\\ 
+				A bigger learning rate can converge in a early step, yet the average reward goes down, too. Also, MC using bigger learning rate might affect to its loss drastically. In spect of average reward, the one with the smallest learning rate(0.01), has the best reward.
+			\item update frequency\\ 
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/freq_loss.png}}\\ 
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/freq_reward.png}}\\ 
+				The more often the model update, the more bias the loss would get. Therefore, it's reasonable freq 100 has the highest loss at the beginning. As for the reward, since the loss converge well for four cases of frequencies, so it's the average value are similar to four different situations, yet the learning speed is different due to different frequencies.
+			\item sample batch size\\
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/size_loss.png}}\\ 
+				\fbox{\includegraphics[width=0.7\textwidth]{./images/size_reward.png}}\\ 
+				In loss plot, the initial loss is big if batch size is large, which might be the reason that too many mistakes need to be fix. Then, the loss decreases and the smallest lost is held by the biggest batch size, which is a sign of stability.\\
+				Also, the reward of these batch size all converges well, but it's still a good practice to check which batch size's average reward grows the fastest.
+				
+
+
+		\end{itemize}
+    \end{answer}
+\end{document}
+
